@@ -116,6 +116,18 @@ class User {
         return this;
     }
 
+    async update(updates) {
+        // Update instance properties
+        Object.keys(updates).forEach(key => {
+            if (updates[key] !== undefined) {
+                this[key] = updates[key];
+            }
+        });
+        
+        // Save to database
+        return this.save();
+    }
+
     async destroy() {
         const db = getFirestore();
         if (this.id) {
