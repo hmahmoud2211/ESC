@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESC Fit Club - Sportswear</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="left-section">
+                <button class="mobile-menu-btn" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="New logo/sohyla ESC.png" alt="ESC Wear Logo" class="header-logo">
+                    </a>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="collections.html">Collections</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="chatbot.html">Chatbot</a></li>
+            </ul>
+            <div class="right-section">
+                <button class="search-btn" aria-label="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <a href="cart.html" class="cart-btn">
+                    Cart
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="New logo/sohyla ESC.png" alt="ESC Wear Logo" class="header-logo">
+                </a>
+            </div>
+            <button class="close-menu-btn" aria-label="Close menu">×</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="collections.html">Collections</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="chatbot.html">Chatbot</a></li>
+        </ul>
+        <div class="mobile-nav-buttons">
+            <a href="cart.html" class="cart-btn">Cart 0</a>
+            <a href="login.html" class="login-btn">Login</a>
+        </div>
+    </div>
+
+    <!-- ESC Logo Animation Screen -->
+    <div class="animation-screen" id="animationScreen">
+        <div class="logo-container">
+            <img src="New logo/sohyla ESC.png" alt="ESC Wear Logo" class="esc-logo-animation">
+        </div>
+        <div class="slogan-text">
+            <span class="slogan-word slogan-word-1">Reset</span>
+            <span class="slogan-word slogan-word-2">Run</span>
+            <span class="slogan-word slogan-word-3">Rule!</span>
+        </div>
+        <div class="professional-loading">
+            <div class="loading-dots">
+                <span class="dot dot-1"></span>
+                <span class="dot dot-2"></span>
+                <span class="dot dot-3"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h2>Search Products</h2>
+                <button class="search-close" aria-label="Close search">×</button>
+            </div>
+            <form class="search-form" onsubmit="event.preventDefault(); performSearch();">
+                <input type="text" class="search-input" placeholder="Search for products..." aria-label="Search">
+            </form>
+            <div class="search-results"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <span class="label">New Collection Available</span>
+                <h1>Edgy, Sporty & Comfy Modest Sportswear</h1>
+                <p>Discover modest sportswear designed for confidence, comfort, and style that adapts to your active lifestyle.</p>
+                <div class="cta-buttons">
+                    <a href="collections.html" class="btn primary">Shop Collection <span class="arrow">→</span></a>
+                    <a href="login.html" class="btn secondary">Join Community</a>
+                </div>
+            </div>
+            
+           
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter-section">
+            <div class="newsletter-content">
+                <h2 class="newsletter-title">Join Our Community</h2>
+                <p class="newsletter-description">Subscribe to get special offers, free giveaways, and updates about our new collections.</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+                    <input type="email" class="email-input" placeholder="Enter your email" required>
+                    <button type="submit" class="subscribe-btn">Subscribe</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Featured Collections -->
+        <section class="collections-section">
+            <h2 class="section-title">Featured Collections</h2>
+            <div class="collections-grid">
+                <div class="collection-card">
+                    <div class="card-image">
+                        <img src="So_photos/so1.jpg" alt="Gym Ready Set">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Gym Ready Set</h3>
+                        <p class="card-description">Perfect for your workout sessions. Comfortable and modest.</p>
+                        <button class="card-btn" onclick="addToCart({
+                            id: '1',
+                            name: 'Gym Ready Set',
+                            price: 1800,
+                            image: 'So_photos/so1.jpg',
+                            size: 'M',
+                            color: 'Black',
+                            quantity: 1
+                        })">Add to Cart - 1800 EGP</button>
+                    </div>
+                </div>
+                <div class="collection-card">
+                    <div class="card-image">
+                        <img src="So_photos/so2.jpg" alt="Sports Hijab">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Sports Hijab</h3>
+                        <p class="card-description">Stay cool and covered during your workouts.</p>
+                        <button class="card-btn" onclick="addToCart({
+                            id: '2',
+                            name: 'Sports Hijab',
+                            price: 2000,
+                            image: 'So_photos/so2.jpg',
+                            size: 'One Size',
+                            color: 'Navy',
+                            quantity: 1
+                        })">Add to Cart - 2000 EGP</button>
+                    </div>
+                </div>
+                <div class="collection-card">
+                    <div class="card-image">
+                        <img src="So_photos/So3.jpg" alt="Modest Athleisure Set">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Modest Athleisure Set</h3>
+                        <p class="card-description">Stylish and comfortable for everyday activities.</p>
+                        <button class="card-btn" onclick="addToCart({
+                            id: '3',
+                            name: 'Modest Athleisure Set',
+                            price: 2100,
+                            image: 'So_photos/So3.jpg',
+                            size: 'L',
+                            color: 'Gray',
+                            quantity: 1
+                        })">Add to Cart - 2100 EGP</button>
+                    </div>
+                </div>
+                <div class="collection-card">
+                    <div class="card-image">
+                        <img src="So_photos/So4.jpg" alt="Premium Training Set">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Premium Training Set</h3>
+                        <p class="card-description">Elite performance wear for serious athletes.</p>
+                        <button class="card-btn" onclick="addToCart({
+                            id: '4',
+                            name: 'Premium Training Set',
+                            price: 2300,
+                            image: 'So_photos/So4.jpg',
+                            size: 'M',
+                            color: 'Black',
+                            quantity: 1
+                        })">Add to Cart - 2300 EGP</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="shared.js"></script>
+    <script>
+        // Initialize shared state
+        document.addEventListener('DOMContentLoaded', function() {
+            sharedState.init();
+        });
+        
+        // Function to add items to cart
+        function addToCart(item) {
+            sharedState.addToCart(item);
+            
+            // Show notification
+            sharedState.showNotification(`${item.name} added to your cart!`, {
+                showViewCartButton: true
+            });
+        }
+        
+        // Function for search
+        function performSearch() {
+            const searchTerm = document.querySelector('.search-input').value.trim().toLowerCase();
+            if (!searchTerm) return;
+            
+            // Redirect to collections page with search parameter
+            window.location.href = `collections.html?search=${encodeURIComponent(searchTerm)}`;
+        }
+        
+        // Animation handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const animationScreen = document.getElementById('animationScreen');
+            const mainContent = document.getElementById('mainContent');
+            
+            // Check if animation has already been shown in this session
+            const animationShown = sessionStorage.getItem('animationShown');
+            
+            if (animationShown) {
+                // Animation already shown, skip it
+                animationScreen.style.display = 'none';
+                mainContent.classList.add('fade-in');
+            } else {
+                // First time visiting or page refresh, show animation
+                sessionStorage.setItem('animationShown', 'true');
+                
+                // Show simple animation for 3.5 seconds
+                setTimeout(function() {
+                    animationScreen.classList.add('fade-out');
+                    mainContent.classList.add('fade-in');
+                    setTimeout(function() {
+                        animationScreen.style.display = 'none';
+                    }, 1000);
+                }, 3500);
+            }
+            
+            // Handle search toggle
+            const searchBtn = document.querySelector('.search-btn');
+            const searchOverlay = document.querySelector('.search-overlay');
+            const searchClose = document.querySelector('.search-close');
+            
+            searchBtn.addEventListener('click', function() {
+                searchOverlay.classList.add('active');
+                document.querySelector('.search-input').focus();
+            });
+            
+            searchClose.addEventListener('click', function() {
+                searchOverlay.classList.remove('active');
+            });
+            
+            // Mobile menu handling
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const closeMenuBtn = document.querySelector('.close-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            closeMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+    </script>
+</body>
+</html> 
