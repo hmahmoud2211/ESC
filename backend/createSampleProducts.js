@@ -1,6 +1,6 @@
 require('dotenv').config();
+const { initializeFirebase } = require('./config/firebase');
 const Product = require('./models/Product');
-const sequelize = require('./config/database');
 
 const sampleProducts = [
     {
@@ -52,7 +52,7 @@ const sampleProducts = [
 
 const createSampleProducts = async () => {
     try {
-        await sequelize.sync();
+        initializeFirebase();
         
         // Check if products already exist
         const existingProducts = await Product.findAll();
@@ -67,15 +67,13 @@ const createSampleProducts = async () => {
         
         // Create products one by one
         for (const product of sampleProducts) {
-            const [newProduct, created] = await Product.findOrCreate({
-                where: { name: product.name },
-                defaults: product
-            });
+            const existingProduct = await Product.findOne({ where: { name: product.name } });
             
-            if (created) {
+            if (!existingProduct) {
+                const newProduct = await Product.create(product);
                 console.log(`Created new product: ${newProduct.name}`);
             } else {
-                console.log(`Product already exists: ${newProduct.name}`);
+                console.log(`Product already exists: ${product.name}`);
             }
         }
         
@@ -83,7 +81,6 @@ const createSampleProducts = async () => {
     } catch (err) {
         console.error('Error creating sample products:', err);
     } finally {
-        await sequelize.close();
         process.exit(0);
     }
 };

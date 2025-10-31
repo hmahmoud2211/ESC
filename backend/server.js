@@ -6,7 +6,7 @@ const session = require('express-session');
 // Load environment variables FIRST before requiring database
 dotenv.config();
 
-const sequelize = require('./config/database');
+const { initializeFirebase } = require('./config/firebase');
 
 // Ensure JWT_SECRET is set
 if (!process.env.JWT_SECRET) {
@@ -39,15 +39,15 @@ app.use(session({
     }
 }));
 
-// Test MySQL connection
-sequelize.authenticate()
-    .then(() => console.log('Connected to MySQL database.'))
-    .catch(err => {
-        console.error('Unable to connect to MySQL:', err);
-        process.exit(1);
-    });
+// Initialize Firebase
+try {
+    initializeFirebase();
+} catch (err) {
+    console.error('Unable to connect to Firebase:', err);
+    process.exit(1);
+}
 
-// Import models to register them with Sequelize
+// Import models (they will use Firebase now)
 require('./models/User');
 require('./models/Product');
 require('./models/Order');

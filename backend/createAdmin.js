@@ -1,10 +1,11 @@
 require('dotenv').config();
+const { initializeFirebase } = require('./config/firebase');
 const User = require('./models/User');
-const sequelize = require('./config/database');
 
 const createAdmin = async () => {
     try {
-        await sequelize.sync();
+        initializeFirebase();
+        
         // Check if admin already exists
         let admin = await User.findOne({ where: { email: 'admin@example.com' } });
         if (admin) {
