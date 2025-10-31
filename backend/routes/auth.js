@@ -3,7 +3,6 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const sequelize = require('../config/database');
 
 // Ensure JWT_SECRET is available
 const getJwtSecret = () => {
@@ -31,23 +30,19 @@ router.post('/register', [
     console.log(`Registration attempt for email: ${email}`);
 
     try {
-        // Case-insensitive search for email
-        let user = await User.findOne({ 
-            where: sequelize.where(
-                sequelize.fn('LOWER', sequelize.col('email')), 
-                sequelize.fn('LOWER', email)
-            )
-        });
+        // Case-insensitive search for email (Firebase Firestore is case-sensitive, so we'll convert to lowercase)
+        const normalizedEmail = email.toLowerCase();
+        let user = await User.findOne({ where: { email: normalizedEmail } });
         
         if (user) {
             console.log(`Registration failed: Email ${email} already exists (ID: ${user.id})`);
             return res.status(400).json({ msg: `User with email ${email} already exists` });
         }
 
-        // Create new user
+        // Create new user with normalized email
         user = await User.create({
             name,
-            email,
+            email: normalizedEmail,
             password,
             role
         });
@@ -82,7 +77,8 @@ router.post('/register', [
         );
     } catch (err) {
         console.error('Registration error:', err);
-        if (err.name === 'SequelizeUniqueConstraintError') {
+        // Firebase doesn't have SequelizeUniqueConstraintError, check for duplicate by message
+        if (err.message && err.message.includes('already exists')) {
             return res.status(400).json({ msg: `User with email ${email} already exists` });
         }
         res.status(500).json({ msg: 'Server error during registration' });
@@ -103,7 +99,9 @@ router.post('/login', [
     console.log(`Login attempt for email: ${email}`);
 
     try {
-        let user = await User.findOne({ where: { email } });
+        // Normalize email to lowercase for case-insensitive login
+        const normalizedEmail = email.toLowerCase();
+        let user = await User.findOne({ where: { email: normalizedEmail } });
         if (!user) {
             console.log(`Login failed: No user found with email ${email}`);
             return res.status(400).json({ msg: 'Invalid credentials' });

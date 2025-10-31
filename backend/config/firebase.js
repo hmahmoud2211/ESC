@@ -1,4 +1,5 @@
 const admin = require('firebase-admin');
+const path = require('path');
 
 // Initialize Firebase Admin SDK
 let db;
@@ -17,19 +18,23 @@ const initializeFirebase = () => {
                     credential: admin.credential.cert(serviceAccount),
                     databaseURL: process.env.FIREBASE_DATABASE_URL
                 });
-                console.log('Firebase initialized with service account');
+                console.log('Firebase initialized with service account from environment');
             } else {
                 // For local development, you can use a service account file
-                const serviceAccountPath = process.env.FIREBASE_SERVICE_ACCOUNT_PATH || './serviceAccountKey.json';
+                const serviceAccountPath = process.env.FIREBASE_SERVICE_ACCOUNT_PATH 
+                    ? path.resolve(__dirname, '..', process.env.FIREBASE_SERVICE_ACCOUNT_PATH)
+                    : path.resolve(__dirname, '..', 'serviceAccountKey.json');
+                
                 try {
                     const serviceAccountFile = require(serviceAccountPath);
                     admin.initializeApp({
                         credential: admin.credential.cert(serviceAccountFile),
                         databaseURL: process.env.FIREBASE_DATABASE_URL
                     });
-                    console.log('Firebase initialized with service account file');
+                    console.log('Firebase initialized with service account file:', serviceAccountPath);
                 } catch (err) {
-                    console.error('Failed to load service account file:', err.message);
+                    console.error('Failed to load service account file from:', serviceAccountPath);
+                    console.error('Error:', err.message);
                     throw new Error('Firebase service account not configured');
                 }
             }

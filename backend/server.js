@@ -100,18 +100,10 @@ const startServer = (port) => {
     }
 };
 
-// Sync Sequelize models with the database
-sequelize.sync({ alter: true })
-    .then(() => {
-        // Start server with initial port
-        const initialPort = Number(process.env.PORT) || 5000;
-        startServer(initialPort);
-    })
-    .catch(err => {
-        console.error('Failed to sync database:', err);
-        process.exit(1);
-    });
+// Start server immediately (no database sync needed for Firebase)
+const initialPort = Number(process.env.PORT) || 5000;
+startServer(initialPort);
 
 // To ensure backend always runs on port 5001, set PORT=5001 in your .env file
 
-module.exports = { app, sequelize }; 
+module.exports = { app }; 
